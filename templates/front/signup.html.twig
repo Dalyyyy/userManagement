@@ -1,0 +1,114 @@
+{% extends 'front_base.html.twig' %}
+{% block header %}
+{% endblock %}
+{% block main %}
+{% block insurance %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+
+<div class="tp-insurance-area pt-120 pb-120 black-bg"  data-background="../front_assets/img/about/about-bg-shape-1.png" style="background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
+    <div class="container-fluid">
+            <div class="tp-logo" style="text-align: center; margin-left: -100px; margin-top: -120px; ">
+                        <a href="{{ path('app_home') }}"><img src="../front_assets/img/logo/logo.png" alt="Insuria"></a>
+            </div>
+    </div>
+    <div id="signup-form" class="toggle-form" style="text-align: center; color: #FFFFFF; width: 450px; margin: auto; ">
+        <hr>
+        {% for flash_error in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        {% endfor %}
+            <h4 class="tp-section-subtitle" style="color: #2CA2FB;">Sign up</h4>
+            <strong>
+        {{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
+
+        <div class="row">
+            <div class="col">
+                <div class="contactform__input">
+                    {{ form_label(registrationForm.first_name) }}
+                    {{ form_widget(registrationForm.first_name, {'attr': {'placeholder': 'Enter First Name'}}) }}
+                    <div style="color: red;">{{ form_errors(registrationForm.first_name) }}</div>
+                
+                </div>
+            </div>
+            <div class="col">
+                <div class="contactform__input">
+                    {{ form_label(registrationForm.last_name) }} 
+                    {{ form_widget(registrationForm.last_name, {'attr': {'placeholder': 'Enter Last Name'}}) }}
+                    <div style="color: red;">{{ form_errors(registrationForm.last_name) }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="contactform__input">
+                    {{ form_label(registrationForm.email) }}
+                    {{ form_widget(registrationForm.email, {'attr': {'placeholder': 'Enter Email'}}) }}
+                    <div style="color: red;">{{ form_errors(registrationForm.email) }}</div>
+                </div>
+            </div>
+            
+                <div class="contactform__input">
+                    {{ form_widget(registrationForm.password, {'attr': {'placeholder': 'Enter Password'}}) }}
+                    <div style="color: red;">{{ form_errors(registrationForm.password) }}</div>
+                </div>
+            
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="contactform__input">
+                    {{ form_label(registrationForm.phone_number) }}
+                    {{ form_widget(registrationForm.phone_number, {'attr': {'placeholder': 'Enter Phone'}}) }}
+                    <div style="color: red;">{{ form_errors(registrationForm.phone_number) }}</div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="contactform__input">
+                    {{ form_label(registrationForm.birth_date) }}
+                    {{ form_widget(registrationForm.birth_date, {'attr': {'placeholder': 'Enter Birth Date'}}) }}
+                    <div style="color: red;">{{ form_errors(registrationForm.birth_date) }}</div>            
+                </div>
+            </div>
+        </div>
+            <div class="col">
+                <div class="contactform__input">
+                    <div style="color: red;">{{ form_errors(registrationForm) }} </div>            
+                </div>
+            </div>
+        <div class="row">
+            <div class="col">
+                <div class="contactform__button">
+                    <button type="submit" class="tp-btn-yellow-similar w-100" name="signup">Sign Up</button>
+                </div>
+            </div>
+        </div>
+        
+        {{ form_end(registrationForm) }}
+        <button class="nav-links active" id="nav-Home-tab" data-bs-toggle="tab"
+            onclick="window.location.href='{{ path('connect_google') }}'" type="button" role="tab" aria-controls="nav-Home-tab"
+            aria-selected="true"
+            style="margin-top: 20px; ">
+            <span class="tpfeature">                  
+                <span class="tpfeature__item mb-15 d-flex justify-content-between align-items-center">
+                <span class="tpfeature__item-info d-flex align-items-center">
+                    <i class="fab fa-google"></i>
+                    <span class="tp-feature-title m-0">Sign Up with Google</span>
+                </span>
+                <span style="margin-left: 50px; " >
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+                </span>
+            </span>
+        </button>
+        <hr>
+        <button onclick="window.location.href='{{ path('app_login') }}'" id="toggle-form-button" class="tp-section-subtitle" >Already have an account?</button>
+    </div>
+
+    </strong>
+
+        
+</div>
+
+
+{% endblock %}
+{% endblock %}

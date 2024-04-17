@@ -1,0 +1,99 @@
+{% extends 'front_base.html.twig' %}
+{% block header %}
+{% endblock %}
+{% block main %}
+{% block insurance %}
+<script>    
+    {% if app.session.flashBag.has('requires_otp') %}
+        {{ app.request.session.set('requires_otp', true) }}
+    {% else %}
+        {{ app.request.session.set('requires_otp', false) }}
+    {% endif %}
+</script>
+<div class="tp-insurance-area pt-120 pb-120 black-bg"  data-background="../front_assets/img/about/about-bg-shape-1.png">
+<div class="container-fluid">
+        <div class="tp-logo" style="text-align: center; margin-left: -100px; margin-top: -120px; ">
+                    <a href="{{ path('app_home') }}"><img src="../front_assets/img/logo/logo.png" alt="Insuria"></a>
+        </div>
+</div>
+<strong>
+<div class="contactform" style="text-align: center; color: #FFFFFF; width: 450px; margin: auto;">
+    <div id="login-form">
+    <form method="post">
+        {% if error %}
+        <hr>
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+
+        <hr>
+        {% if app.session.flashbag.has('info') %}
+            <div class="alert alert-info">
+                {{ app.session.flashbag.get('info')|first }}
+            </div>
+        {% elseif app.session.flashbag.has('success') %}
+            <div class="alert alert-success">
+                {{ app.session.flashbag.get('success')|first }}
+            </div>
+        {% endif %}
+
+        <h4 class="tp-section-subtitle" style="color: #2CA2FB;">Login</h4>
+
+        <div class="row">
+            <div class="col">
+                <div class="contactform__input">
+                    <label for="inputEmail">Email</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="Enter Email">
+                </div>
+            </div>
+            <div class="col">
+                <div class="contactform__input">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Enter Password">
+                </div>
+            </div>
+        </div>
+        {% if app.request.session.get('requires_otp') %}
+        <div class="row">
+            <div class="contactform__input">
+                <label for="otp">Enter OTP</label>
+                <input class="form-control" id="otp" name="otp">
+            </div>
+        </div>
+        {% endif %}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <div class="col">
+            <div class="contactform__button">
+                <button type="submit" class="tp-btn-yellow-similar w-100" name="login">Login</button>
+            </div>
+        </div>
+    </form>
+</div>
+<button class="nav-links active" id="nav-Home-tab" data-bs-toggle="tab"
+    onclick="window.location.href='{{ path('connect_google') }}'" type="button" role="tab" aria-controls="nav-Home-tab"
+    aria-selected="true"
+    style="margin-top: 20px; ">
+    <span class="tpfeature">                  
+        <span class="tpfeature__item mb-15 d-flex justify-content-between align-items-center">
+        <span class="tpfeature__item-info d-flex align-items-center">
+            <i class="fab fa-google"></i>
+            <span class="tp-feature-title m-0">Login with Google</span>
+        </span>
+        <span style="margin-left: 50px; " >
+            <i class="fas fa-arrow-right"></i>
+        </span>
+        </span>
+    </span>
+</button>
+</strong>
+<hr>
+        <button onclick="window.location.href='{{ path('app_register') }}'" id="toggle-form-button" class="tp-section-subtitle">Don't have an account?</button>
+</div>
+</div>
+{% endblock %}
+{% endblock %}
